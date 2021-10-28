@@ -1,0 +1,42 @@
+
+spring:
+  application:
+    name: mq-demo
+
+  rabbitmq:
+    addresses: 192.168.162.239:5672,192.168.162.235:5672
+    username: rabbitmq
+    password: rabbitmq
+    publisher-returns: true
+    template.mandatory: true
+    virtual-host: common
+    listener:
+      simple:
+        acknowledge-mode: auto
+    publisher-confirm-type: correlated
+#        retry:
+#          max-attempts: 1
+#          enabled: true
+
+  redis:
+    cluster:
+      nodes: 192.168.162.235:6379,192.168.162.235:6380,192.168.162.235:6381,192.168.162.235:6382,192.168.162.235:6383,192.168.162.235:6384
+      max-redirects: 3
+    pool:
+      #最大空闲连接
+      max-idle: 8
+      #最小空闲连接
+      min-idle: 0
+      #最大连接数，-1表示是没有限制
+      max-active: 8
+      #最大阻塞等待时间，-1表示没有限制
+      max-wait: -1
+    #连接超时时间（毫秒）
+    timeout: 60000
+    commandTimeout: 5000
+    password: 123456
+    connectionTimeout: 60000
+
+
+mq.delay.queue: "delay.queue.process"
+mq.xdelay.xqeue: "xDelayedQueue"
